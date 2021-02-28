@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/46bbfb42-e97a-4a46-9e6f-c054627bece2/resourceGroups/gpsS/providers/Microsoft.Web/sites/gpsS",
+    "appService.deploySubpath": "."
+}
