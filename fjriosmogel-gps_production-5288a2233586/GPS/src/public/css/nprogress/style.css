@@ -1,0 +1,60 @@
+      #right-panel {
+        font-family:;
+        line-height: 30px;
+        padding-left: 10px;
+      }
+
+      #right-panel select, #right-panel input {
+        font-size: 15px;
+      }
+
+      #right-panel select {
+        width: 100%;
+      }
+
+      #right-panel i {
+        font-size: 8px;
+      }
+      html, body {
+        height: 100px;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        float: left;
+        width: 1175px;
+        height: 698%;
+      }
+      #right-panel {
+        margin: 20px;
+        border-width: 2px;
+        width: 20%;
+        height: 100%;
+        float: left;
+        text-align: left;
+        padding-top: 0;
+      }
+
+      #directions-panel{
+        perspective:absolute;
+        margin-top: 10px;
+        font-size: 12px;
+        background-color: #fff;
+        padding: 10px;
+        width: 100%;
+      }
+
+        
+     #floating-panel {
+        position: absolute;
+        top: 60px;
+        left: 55%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family:;
+        line-height: 30px;
+        padding-left: 50px;
+      }

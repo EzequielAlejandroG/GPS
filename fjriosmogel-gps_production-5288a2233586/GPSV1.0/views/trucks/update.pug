@@ -1,0 +1,57 @@
+extends ../layout.pug
+block contenido                         
+  #map
+            #aviso
+                  input.form-control(type="hidden", name="latitud", value=locationUpdate.latitud, id="lati" required)                  
+                  input.form-control(type="hidden", name="long", value=locationUpdate.longitud, id="long" required)
+                  input.form-control(type="hidden", name="eco", value=locationUpdate.noEconomico, id="eco" required)
+                  input.form-control(type="hidden", name="placa", value=locationUpdate.placa, id="placa" required)
+  script.
+    var a =  document.getElementById("lati").value
+    var b =  document.getElementById("long").value
+    var eco = document.getElementById("eco").value
+    var placas = document.getElementById("placa").value
+      var superchargers = [
+      {
+        location: 'numero economico:'+ ' ' + eco,
+        location1: 'placas:'+ ' ' + placas,
+        latitude: a,
+        longitude: b
+      },
+      ];
+    
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 19.4978, lng: -99.1269 },
+        zoom: 5
+      });
+
+      superchargers.forEach(function(sc) {
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(sc.latitude, sc.longitude),
+          icon: {
+            url: 'http://www.soft2rent.com/updates/16.0.0.3/camion.ico',
+            scaledSize: new google.maps.Size(35, 43)
+          },
+          map: map,
+          title: sc.location,
+          animation: google.maps.Animation.DROP
+        });
+      });
+    }
+
+  script(async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeQZSZalmb79CG_jD9VM6zpLsCP5QcigM&callback=initMap")
+
+
+
+
+  // jQuery
+  script(src='/public/vendor/jquery/jquery.min.js')
+  // Bootstrap Core JavaScript
+  script(src='/public/vendor/bootstrap/js/bootstrap.min.js')
+  // Metis Menu Plugin JavaScript
+  script(src='/public/vendor/metisMenu/metisMenu.min.js')
+  // Custom Theme JavaScript
+  script(src='/public/dist/js/sb-admin-2.js')
+  script(src='/public/dist/js/bootstrap-select.min.js')

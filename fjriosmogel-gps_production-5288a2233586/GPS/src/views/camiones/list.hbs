@@ -1,0 +1,66 @@
+<div class="col-md-5">
+      <div class="card-body">
+      <table>
+      <tr>
+      <td>
+        <input class="form-control" data-table="order-table" type="text" placeholder="Search..">
+      </td>
+      </tr>
+      </table>
+      </div> 
+    </div>
+
+
+<table class="table table table-hover" border=0>
+{{#each ubicacion}}
+  <thead>
+    <tr>
+      <th scope="col">idVehiculo</th>
+      <th scope="col">idCliente</th>
+      <th scope="col">Velocidad</th>
+      <th scope="col">Curso</th>
+      <th scope="col">fecha de Pocicion</th>
+      <th scope="col">kilometraje</th>
+      <th scope="col">N°Serie</th>
+      <th scope="col">placa</th>
+      <th scope="col">N°Economico</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Municipio</th>
+      <th scope="col">Asentamiento</th>
+      <th scope="col">Dirección</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+                    <td bgcolor="#00FF00">{{idVehiculo}}</td>
+                    <td>{{idCliente}}</td>
+                    <td>{{velocidad}}</td>
+                    <td>{{curso}}</td>
+                    <td>{{fechaPosicion}}</td>
+                    <td>{{kilometraje}}</td>
+                    <td>{{noSerie}}</td>
+                    <td>{{placa}}</td>
+                    <td>{{noEconomico}}</td>
+                    <td>{{estadoGeoreferencia}}</td>
+                    <td>{{municipioGeoreferencia}}</td>
+                    <td>{{asentamientoGeoreferencia}}</td>
+                    <td>{{direccionGeoreferencia}}</td>
+                    <td><a class="btn btn-danger" href="ubicacion/mapa/{{idVehiculo}}"><i class="fas fa-map-marked-alt"></i>
+                        Ver mapa
+                    </a></td>
+                   
+    </tr>
+   </tbody>
+   {{else}}
+
+        <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p>There are not Links saved yet.</p>
+                <a href="/ubicacion/add">Create One!</a>
+            </div>
+        </div>
+        {{/each}}
+</table>
+
+    </div>
+

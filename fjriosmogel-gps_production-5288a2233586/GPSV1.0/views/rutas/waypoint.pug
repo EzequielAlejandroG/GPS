@@ -1,0 +1,122 @@
+extends ../layout.pug
+block contenido
+  #page-wrapper2
+         
+            #aviso
+
+                  input.form-control(type="hidden", name="salida", value=rutaUpdate.salida, id="start", required)
+                  input.form-control(type="hidden", name="destino", value=rutaUpdate.destino, id="end", required)
+                  input.form-control(type="hidden", name="waypoint", id="waypoints", required)  
+                  input.form-control(type="submit" id="submit" class="btn btn-danger" value="Trazar ruta")
+                  input.form-control(type="hidden", name="lati", value=rutaUpdate.latitud, id="lati" required)                  
+                  input.form-control(type="hidden", name="long", value=rutaUpdate.longitud, id="long" required)
+                  input.form-control(type="hidden", name="eco", value=rutaUpdate.noEconomico, id="eco" required)
+                  input.form-control(type="hidden", name="placa", value=rutaUpdate.placa, id="placa" required)
+                  input.form-control(type="hidden", name="esta", value=rutaUpdate.estadoGeoreferencia, id="esta" required)
+                  input.form-control(type="hidden", name="dir", value=rutaUpdate.municipioGeoreferencia, id="dir" required)
+                  input.form-control(type="hidden", name="asen", value=rutaUpdate.asentamientoGeoreferencia, id="asen" required)
+                  input.form-control(type="hidden", name="dirf", value=rutaUpdate.direccionGeoreferencia, id="dirf" required)  
+  
+  #map
+  script.
+
+      var a = document.getElementById("start").value
+      var b = document.getElementById("end").value
+      var c =  document.getElementById("lati").value
+      var d =  document.getElementById("long").value
+      var eco = document.getElementById("eco").value
+      var placas = document.getElementById("placa").value
+      var dire = document.getElementById("dir").value
+      var estado = document.getElementById("esta").value
+      var asenta = document.getElementById("asen").value
+      var diref = document.getElementById("dirf").value
+      var superchargers = [
+      {
+        location: estado+',' + dire + ',' + asenta + ',' + diref + '\n N°economico:'+ eco +'\n Placas:' + placas,
+        latitude: c,
+        longitude: d
+      },
+      ];
+    
+        function initMap() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 5,
+          center: {lat: 19.4978, lng: -99.1269}
+        });
+        directionsDisplay.setMap(map);
+
+        document.getElementById('submit').addEventListener('click', function() {
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+        });
+
+      superchargers.forEach(function(sc) {
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(sc.latitude, sc.longitude),
+          icon: {
+            url: 'http://www.soft2rent.com/updates/16.0.0.3/camion.ico',
+            scaledSize: new google.maps.Size(35, 43)
+          },
+          map: map,
+          title: sc.location,
+          animation: google.maps.Animation.DROP
+        });
+      });  
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        var waypts = [];
+        var checkboxArray = document.getElementById('waypoints');
+        for (var i = 0; i < checkboxArray.length; i++) {
+          if (checkboxArray.options[i].selected) {
+            waypts.push({
+              ruta: checkboxArray[i].value,
+              stopover: true
+            });
+          }
+        }
+
+        directionsService.route({
+          origin: document.getElementById('start').value,
+          destination: document.getElementById('end').value,
+          waypoints: waypts,
+          optimizeWaypoints: true,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+            var route = response.routes[0];
+            var summaryPanel = document.getElementById('directions-panel');
+            summaryPanel.innerHTML = '';
+            // For each route, display summary information.
+            for (var i = 0; i < route.legs.length; i++) {
+              var routeSegment = i + 1;
+              summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+                  '</b><br>';
+              summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+              summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+              summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+            }
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+
+      }
+
+
+
+
+  script(async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeQZSZalmb79CG_jD9VM6zpLsCP5QcigM&callback=initMap")                  
+                
+  // jQuery
+  script(src='/public/vendor/jquery/jquery.min.js')
+  // Bootstrap Core JavaScript
+  script(src='/public/vendor/bootstrap/js/bootstrap.min.js')
+  // Metis Menu Plugin JavaScript
+  script(src='/public/vendor/metisMenu/metisMenu.min.js')
+  // Custom Theme JavaScript
+  script(src='/public/dist/js/sb-admin-2.js')
+  script(src='/public/dist/js/bootstrap-select.min.js')

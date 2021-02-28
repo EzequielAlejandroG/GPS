@@ -1,0 +1,61 @@
+
+<div class="container p-4">    
+<div class="col-md-5">
+      <div class="card-body">
+      <table>
+      <tr>
+      <td>
+        <a class="btn btn-success" href="/empresa/add"><i class="fas fa-plus"></i>
+        Nuevo
+        </a>
+      </td>
+      <td>
+        <input class="form-control" data-table="order-table" type="text" placeholder="Search..">
+      </td>
+      </tr>
+      </table>
+      </div> 
+    </div>
+
+<div class="container mt-4">
+<table class="table table table-hover" border=0>
+  <thead>
+    <tr align="center">
+      <th scope="col">id</th>
+      <th scope="col">razon social</th>
+      <th scope="col">RFC</th>
+      <th scope="col">Domicilio Fiscal</th>
+      <th scope="col">usuario</th>
+      <th colspan="2">action</th>
+    </tr>
+  </thead>
+  {{#each empresa}}
+  <tbody>
+    <tr align="center">
+                    <td>{{id}}</td>
+                    <td>{{razonsocial}}</td>
+                    <td>{{rfc}}</td>
+                    <td align="justify">{{domicilio_fiscal}}</td>
+                    <td>{{user_id}}</td>
+                    <td><a class="btn btn-danger" href="/empresa/delete/{{id}}"><i class="fas fa-times-circle"></i>
+                        Delete
+                    </a>
+                    <a class="btn btn-secondary" href="/empresa/edit/{{id}}"><i class="fas fa-pencil-alt"></i>
+                        Edit
+                    </a></td>
+    </tr>
+   </tbody>
+   {{else}}
+
+        <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p>There are not company saved yet.</p>
+                <a href="/empresa/add">Create One!</a>
+            </div>
+        </div>
+        {{/each}}
+</table>
+
+    </div>
+</div>
+</div>

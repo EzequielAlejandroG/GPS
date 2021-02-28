@@ -1,0 +1,82 @@
+<div class="col-md-5 mx-auto">
+<div class="container p-5">
+    <div class="row">
+      <div class="col-md-11 mx-auto">
+      <div class="card text-center">
+        <div class="card-header">
+          <h3>Edit Driver</h3>
+        </div>
+        
+
+    <div class="card">
+        <div class="card-body">
+            <form action="/operador/edit/{{operador.id_operador}}" method="POST">
+                
+                <div class="form-group">
+                    Numero identificador
+                    <input type="text" name="id_operador" class="form-control" placeholder="numero identificador del operador" value="{{operador.id_operador}}" autofocus>
+                </div>
+
+                <div class="form-group">
+                Nombre completo
+                    <input type="text" name="nombre" class="form-control" placeholder="nombre" value="{{operador.nombre}}" autofocus>
+                </div>
+
+
+                <div class="form-group">
+                Categoria
+                        <select>
+                        <option value="{{category.name}}"></option>
+                        </select>
+                </div>
+
+                
+                <div class="form-group">
+                Base
+                        <select>
+                        <option name="nombre" value="{{base.nombre}}">
+                        </select>
+                </div>
+
+                <div class="form-group">
+                Tipo de licencia
+                        <select>
+                        <option name="tipo" value="{{licencia.tipo}}">
+                        </select>
+                </div>
+
+                <div class="form-group">
+                Vigencia
+                    <input type="text" name="vigencia" class="form-control" placeholder="vigencia" value="{{operador.vigencia}}">
+                </div>
+
+                <div class="form-group">
+                Numero de seguro
+                    <input type="text" name="numero_seguro" class="form-control" placeholder="numero de seguro" value="{{operador.numero_seguro}}">
+                </div>
+
+                 <div class="form-group">
+                 Fecha de ingreso
+                    <input type="text" name="fecha_ingreso" class="form-control" placeholder="fecha de ingreso" value="{{operador.fecha_ingreso}}">
+                </div>
+
+
+
+                <div class="form-group">
+                    <button class="btn btn-success btn-block"><i class="fas fas fa-save"></i>
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+                 <div class="card">
+                <div class="card-body">    
+                        <div class="form-group">
+                            <a href="/operador" class="btn btn-light btn-block"><i class="fas fa-undo-alt"></i>
+                                close
+                            </a>
+                        </div>                          
+                </div>
+            </div>
+</div>

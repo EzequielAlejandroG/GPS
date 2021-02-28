@@ -1,0 +1,76 @@
+<div class="container p-4">    
+<div class="col-md-5">
+      <div class="card-body">
+      <table>
+      <tr>
+      <td>
+        <a class="btn btn-success" href="/ruta/add"><i class="fas fa-plus"></i>
+        Nuevo
+        </a>
+      </td>
+      <td>
+        <input class="form-control" data-table="order-table" type="text" placeholder="Search.."></td>
+        <td><a class="btn btn-light" href="/ruta/edit/{{id_remolque}}"><i class="fas fa-search"></i>
+      </a></td>
+      </td>
+      </tr>
+      </table>
+      </div> 
+    </div>
+    </div>
+
+
+<table class="table table table-hover" border="0">
+  <thead>
+    <tr align="center">
+      <th scope="col">idruta</th>
+      <th scope="col">idVehiculo</th>
+      <th scope="col">id_remolque</th>
+      <th scope="col">salida</th>
+      <th scope="col">destino</th>
+      <th scope="col">id_operador</th>
+      <th scope="col">id_usuario</th>
+      <th scope="col">fecha_salida</th>
+      <th scope="col">fecha_llegada</th>
+      <th scope="col">hora_llegada</th>
+      <th scope="col">tiempo_estimado</th>
+      <th scope="col">create_at</th>
+      <th scope="col">id_prioridad</th>
+      <th scope="col">descripcion</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{#each ruta}}
+    <tr align="center">
+      <th>{{idruta}}</th>
+      <th>{{idVehiculo}}</th>
+      <th>{{id_remolque}}</th>
+      <th>{{start}}</th>
+      <th>{{end}}</th>
+      <th>{{id_operador}}</th>
+      <th>{{id_usuario}}</th>
+      <th>{{fecha_salida}}</th>
+      <th>{{fecha_llegada}}</th>
+      <th>{{hora_llegada}}</th>
+      <th>{{tiempo_estimado}}</th>
+      <th>{{create_at}}</th>
+      <th>{{id_prioridad}}</th>
+      <th>{{descripcion}}</th>
+      <td><a class="btn btn-secondary" href="ubicacion/mapa/{{idVehiculo}}"><i class="fas fa-map-marked-alt"></i>Ver mapa</a></td>
+      <td><a  class="btn btn-danger" href="ubicacion/report/{{idVehiculo}}"><i class="fas fa-file-pdf"></i>Ver Reporte</a></td>
+                   
+    </tr>
+   </tbody>
+   {{else}}
+
+        <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p>There are not Links saved yet.</p>
+                <a href="/ruta/add">Create One!</a>
+            </div>
+        </div>
+        {{/each}}
+</table>
+
+    </div>
+

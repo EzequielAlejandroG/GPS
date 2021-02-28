@@ -1,0 +1,56 @@
+
+<div class="container p-4">    
+<div class="col-md-11">
+      <div class="card-body">
+      <table>
+      <tr>
+      <td>
+        <a class="btn btn-success" href="/priority/add"><i class="fas fa-plus"></i>
+        Nuevo
+        </a>
+      </td>
+      <td>
+        <input class="form-control" data-table="order-table" type="text" placeholder="Search..">
+      </td>
+      </tr>
+      </table>
+      </div> 
+    </div>
+
+<div class="container mt-4">
+<table class="table table table-hover" border=0>
+  <thead>
+    <tr align="center">
+      <th scope="col">id</th>
+      <th scope="col">Nivel de prioridad</th>
+      <th scope="col">user</th>
+      <th colspan="2">action</th>
+    </tr>
+  </thead>
+  {{#each priority}}
+  <tbody>
+    <tr align="center">
+                    <td>{{id}}</td>
+                    <td>{{name}}</td>
+                    <td>{{user_id}}</td>
+                    <td><a class="btn btn-danger" href="/priority/delete/{{id}}"><i class="fas fa-times-circle"></i>
+                        Delete
+                    </a>
+                    <a class="btn btn-secondary" href="/priority/edit/{{id}}"><i class="fas fa-pencil-alt"></i>
+                        Edit
+                    </a></td>
+    </tr>
+   </tbody>
+   {{else}}
+
+        <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p>There are not priority saved yet.</p>
+                <a href="priority/add">Create One!</a>
+            </div>
+        </div>
+        {{/each}}
+</table>
+    </div>
+</div>
+</div>

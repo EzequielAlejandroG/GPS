@@ -1,0 +1,96 @@
+extends ../layout.pug
+block contenido
+
+  #page-wrapper
+    .row
+      .col-lg-12
+        h3.page-header Lista de remolques
+    .row
+      .col-lg-12
+        .panel.panel-default
+          .panel-heading
+            | Remolques
+          .panel-body
+            table#dataTables-example.table.table-striped.table-bordered.table-hover
+              thead
+                tr
+                  th Nombre
+                  th Placas
+                  th Acción
+              tbody
+                for remolque in remolques
+                  tr.odd.gradeX
+                    td #{remolque.nombre}
+                    td #{remolque.placas}
+                    td
+                      a(class="btn btn btn-primary btn-circle" href="/trailers/"+remolque.idRemolque)
+                        i.fa.fa-list(title="Editar")
+                      b &nbsp &nbsp &nbsp
+                      form(id="eliminar"  style="display:inline" action="/trailers/"+remolque.idRemolque+"?_method=DELETE",method="POST" onsubmit="return confirm('¿Continuar con la eliminación?')")
+                        button(type="submit/image" alt="text" value="" class="btn btn-danger btn-circle")
+                          i.fa.fa-times(title="Eliminar")
+            // /.panel-body
+        // /.panel
+      // /.col-lg-12
+    // /.row
+     // jQuery
+  script(src='/public/dataTables/jquery/jquery.js') 
+  // Bootstrap Core JavaScript
+  script(src='/public/vendor/bootstrap/js/bootstrap.min.js')
+  // Metis Menu Plugin JavaScript
+  script(src='/public/vendor/metisMenu/metisMenu.min.js')
+  // DataTables JavaScript
+  script(src='/public/dist/js/sb-admin-2.js')
+  script(src='/public/stuk/dist/jszip.min.js')  
+  script(src='/public/dataTables/media/js/jquery.dataTables.min.js')
+  script(src='/public/dataTables/media/js/dataTables.bootstrap.min.js')
+  script(src='/public/dataTables/extensions/Responsive/js/dataTables.responsive.js')
+  script(src='/public/dataTables/extensions/Buttons/js/dataTables.buttons.min.js')
+  script(src='/public/dataTables/extensions/Buttons/js/buttons.html5.min.js')
+  script(src='/public/pdfmake/build/pdfmake.min.js')
+  script(src='/public/pdfmake/build/vfs_fonts.js') 
+  if usuario.permisos === 2
+    script.
+      $('#dataTables-example').DataTable({
+          responsive: true,
+          dom: 'Bfrtip',
+          buttons: [
+              {
+                  extend: 'excelHtml5',
+                  title: 'Trailer',
+                  exportOptions: {
+                      columns: [ 0, 1, 2]
+                  }
+              },
+              {
+                  extend: 'pdf',
+                  title: 'Trailers',
+                  exportOptions: {
+                      columns: [ 0, 1, 2]
+                  }
+              }
+          ]
+      });
+  else
+
+    script.
+      $('#dataTables-example').DataTable({
+          responsive: true,
+          dom: 'Bfrtip',
+          buttons: [
+              {
+                  extend: 'excelHtml5',
+                  title: 'Trailer',
+                  exportOptions: {
+                      columns: [ 0, 1, 2]
+                  }
+              },
+              {
+                  extend: 'pdf',
+                  title: 'Trailer',
+                  exportOptions: {
+                      columns: [ 0, 1, 2 ]
+                  }
+              }
+          ]
+      });

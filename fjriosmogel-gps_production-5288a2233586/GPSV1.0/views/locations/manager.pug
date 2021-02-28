@@ -1,0 +1,163 @@
+extends ../layout.pug
+block contenido
+
+  #page-wrapper
+    .row
+      .col-lg-12
+        h3.page-header Lista de ubicaciones
+    .row
+      .col-lg-12
+        .panel.panel-default
+          .panel-heading
+            | Ubicaciones
+          .panel-body
+            table#dataTables-example.table.table-striped.table-bordered.table-hover
+              thead
+                tr
+                  th N°Economico
+                  th Placas 
+                  th Velocidad
+                  th Kilometraje
+                  th Estado       
+                  th Municipio    
+                  th Asentamiento 
+                  th Dirección
+                  th Posición
+                  th Acción   
+                  th Estado del Motor            
+                  th FechaParcialRespuesta     
+                  th TiempoParcialRespuesta    
+                  th AnoParcialRespuesta       
+                  th MesParcialRespuesta       
+                  th DiaSemanaRespuesta        
+                  th Punto geografico
+                  th N°Vehiculo                                 
+                  th N°Cobertura               
+                  th N°Cliente                 
+                  th N°Equipo                  
+                  th N°Tipo de vehiculo            
+                  th Latitud                   
+                  th Longitud                                   
+                  th Curso                     
+                  th Fecha de posicion             
+                  th Fecha de respuesta                           
+                  th Fecha de posicionHcm          
+                  th Trayecto                
+                  th Notificacion              
+                  th N° Notificacion            
+                  th Argumento     
+                  th N° Serie                                                     
+                  th N° Servicio                
+                  th N° TipoPosicion            
+              tbody
+                for ubicacion in ubicaciones
+                  tr.odd.gradeX
+                    td #{ubicacion.noEconomico}
+                    td #{ubicacion.placa}
+                    td #{ubicacion.velocidad}
+                    td #{ubicacion.kilometraje}
+                    td #{ubicacion.estadoGeoreferencia}       
+                    td #{ubicacion.municipioGeoreferencia}    
+                    td #{ubicacion.asentamientoGeoreferencia} 
+                    td #{ubicacion.direccionGeoreferencia}    
+                    td #{ubicacion.tipoPosicion}
+                    td
+                      // /.a(class="btn btn btn-primary btn-circle" href="/locations/"+ubicacion.placa)
+                        i.fa.fa-list(title="Editar")
+                      b &nbsp
+                       a(class="btn btn-danger btn-circle" href="/locations/"+ubicacion.placa)
+                        i.fa.fa-map-marker(title="Localizar")
+                      b &nbsp
+                      // /.form(id="eliminar"  style="display:inline" action="/locations/"+ubicacion.placa+"?_method=DELETE",method="POST" onsubmit="return confirm('¿Continuar con la eliminación?')")
+                        button(type="submit/image" alt="text" value="" class="btn btn-danger btn-circle")
+                          i.fa.fa-times(title="Eliminar")  
+                    td #{ubicacion.estadoMotor}             
+                    td #{ubicacion.fechaParcialRespuesta}     
+                    td #{ubicacion.tiempoParcialRespuesta}    
+                    td #{ubicacion.anoParcialRespuesta}       
+                    td #{ubicacion.mesParcialRespuesta}      
+                    td #{ubicacion.diaSemanaRespuesta}        
+                    td #{ubicacion.geoPunto}
+                    td #{ubicacion.idVehiculo}                                 
+                    td #{ubicacion.idCobertura}               
+                    td #{ubicacion.idCliente}                 
+                    td #{ubicacion.idEquipo}                  
+                    td #{ubicacion.idTipoVehiculo}            
+                    td #{ubicacion.latitud}                   
+                    td #{ubicacion.longitud}                                   
+                    td #{ubicacion.curso}                     
+                    td #{ubicacion.fechaPosicion}             
+                    td #{ubicacion.fechaRespuesta}                           
+                    td #{ubicacion.fechaPosicionHcm}          
+                    td #{ubicacion.idTrayecto}                
+                    td #{ubicacion.notificacion}              
+                    td #{ubicacion.idNotificacion}            
+                    td #{ubicacion.argumentoNotificacion}     
+                    td #{ubicacion.noSerie}                                                     
+                    td #{ubicacion.idServicio}                
+                    td #{ubicacion.idTipoPosicion}             
+            // /.panel-body
+        // /.panel
+      // /.col-lg-12
+    // /.row
+    // jQuery
+  script(src='/public/dataTables/jquery/jquery.js') 
+  // Bootstrap Core JavaScript
+  script(src='/public/vendor/bootstrap/js/bootstrap.min.js')
+  // Metis Menu Plugin JavaScript
+  script(src='/public/vendor/metisMenu/metisMenu.min.js')
+  // DataTables JavaScript
+  script(src='/public/dist/js/sb-admin-2.js')
+  script(src='/public/stuk/dist/jszip.min.js')  
+  script(src='/public/dataTables/media/js/jquery.dataTables.min.js')
+  script(src='/public/dataTables/media/js/dataTables.bootstrap.min.js')
+  script(src='/public/dataTables/extensions/Responsive/js/dataTables.responsive.js')
+  script(src='/public/dataTables/extensions/Buttons/js/dataTables.buttons.min.js')
+  script(src='/public/dataTables/extensions/Buttons/js/buttons.html5.min.js')
+  script(src='/public/pdfmake/build/pdfmake.min.js')
+  script(src='/public/pdfmake/build/vfs_fonts.js') 
+  if usuario.permisos === 2
+    script.
+      $('#dataTables-example').DataTable({
+          responsive: true,
+          dom: 'Bfrtip',
+          buttons: [
+              {
+                  extend: 'excelHtml5',
+                  title: 'Ubicaciones',
+                  exportOptions: {
+                      columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                  }
+              },
+              {
+                  extend: 'pdf',
+                  title: 'Ubicaciones',
+                  exportOptions: {
+                      columns: [ 0, 1, 2, 3, 4, 5, 6, 7  ]
+                  }
+              }
+          ]
+      });
+  else
+
+    script.
+      $('#dataTables-example').DataTable({
+          responsive: true,
+          dom: 'Bfrtip',
+          buttons: [
+              {
+                  extend: 'excelHtml5',
+                  title: 'Ubicaciones',
+                  exportOptions: {
+                      columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                  }
+              },
+              {
+                  extend: 'pdf',
+                  title: 'Ubicaciones',
+                  exportOptions: {
+                      columns: [ 0, 1, 2, 3, 4, 5, 6, 7  ]
+                  }
+              }
+          ]
+      });

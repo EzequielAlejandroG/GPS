@@ -1,0 +1,240 @@
+
+    <style>
+      #right-panel {
+        font-family:;
+        line-height: 30px;
+        padding-left: 10px;
+      }
+
+      #right-panel select, #right-panel input {
+        font-size: 15px;
+      }
+
+      #right-panel select {
+        width: 100%;
+      }
+
+      #right-panel i {
+        font-size: 8px;
+      }
+      html, body {
+        height: 100px;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        float: left;
+        width: 1175px;
+        height: 1140%;
+      }
+      #right-panel {
+        margin: 20px;
+        border-width: 2px;
+        width: 20%;
+        height: 100%;
+        float: left;
+        text-align: left;
+        padding-top: 0;
+      }
+
+      #directions-panel{
+        perspective:absolute;
+        margin-top: 10px;
+        font-size: 12px;
+        background-color: #fff;
+        padding: 10px;
+        width: 100%;
+      }
+
+        
+     #floating-panel {
+        position: absolute;
+        top: 60px;
+        left: 55%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family:;
+        line-height: 30px;
+        padding-left: 50px;
+      }
+
+    </style>
+
+    <div id="map"></div>
+    <div id="right-panel">
+    <div>
+    <form action="/ruta/add" method="POST">
+                        <div class="form-group">
+                            <select type="text" id="idVehiculo" name="idVehiculo" class="form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="id_remolque" class="form-control" placeholder="Remolque" autofocus>
+                        </div>                        
+                        <div class="form-group">
+                        <input type="text" name="start" id="start" class="form-control" placeholder="Salida" autofocus>
+                        </div>
+                        <lable multiple id="waypoints" class="label label-default"></label>
+                        <div class="form-group">
+                            <input type="text" name="end" id="end" class="form-control" placeholder="Destino" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="id_operador" class="form-control" placeholder="operador" autofocus>
+                        </div> 
+                        <div class="form-group">
+                        <label><b>Fecha de salida:</label>
+                            <input type="date" name="fecha_salida" class="form-control" placeholder="Fecha Salida" autofocus>
+                        </div> 
+                        <div class="form-group">
+                        <label>Hora de salida:</label>
+                            <input type="time" name="hora_salida" class="form-control" placeholder="Hora salida" autofocus>
+                        </div>
+                        <div class="form-group">
+                        <label>Fecha de llegada:</label>
+                            <input type="date" name="fecha_llegada" class="form-control" placeholder="Fecha Llegada" autofocus>
+                        </div> 
+                        <div class="form-group">
+                        <label>Hora de llegada:</label></b>
+                            <input type="time" name="hora_llegada" class="form-control" placeholder="Hora llegada" autofocus>
+                        </div> 
+                        <div class="form-group">
+                            <input type="text" name="tiempo_estimado" class="form-control" placeholder="tiempo estimado" autofocus>
+                        </div> 
+                        <div class="form-group">
+                            <input type="text" name="id_prioridad" class="form-control" placeholder="prioridad" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="descripcion" class="form-control" placeholder="Descripción" autofocus  rows="10" cols="50"></textarea>
+                        </div>  
+                        <div class="form-group">
+                        <input class="btn btn-danger btn-block" id="submit" type="button" value="Trazar ruta">
+                        </div>
+                            <button class="btn btn-success btn-block">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+             
+                </div>
+            </div>
+    </div>
+
+
+    <script>
+      function initMap() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 5,
+          center: {lat: 19.4978, lng: -99.1269 }
+        });
+        var geocoder = new google.maps.Geocoder;
+        var infowindow = new google.maps.InfoWindow;
+
+        document.getElementById('submit').addEventListener('click', function() {
+          geocodeLngLat(geocoder, map, infowindow);
+        });
+
+      // Coordenada de la ruta (desde Misiones hasta Tierra del Fuego)
+      var flightPlanCoordinates = [
+      {lng:-93.0299562,lat:17.9247055},
+        
+      ];
+       
+      // Información de la ruta (coordenadas, color de línea, etc...)
+      var flightPath = new google.maps.Polyline({
+        path: flightPlanCoordinates,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 5
+      });
+       
+      // Creando la ruta en el mapa
+      flightPath.setMap(map);
+
+        directionsDisplay.setMap(map);
+
+        document.getElementById('submit').addEventListener('click', function() {
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+        });
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        var waypts = [];
+        var checkboxArray = document.getElementById('waypoints');
+        for (var i = 0; i < checkboxArray.length; i++) {
+          if (checkboxArray.options[i].selected) {
+            waypts.push({
+              location: checkboxArray[i].value,
+              stopover: true
+            });
+          }
+        }
+
+          directionsService.route({
+          origin: document.getElementById('start').value,
+          destination: document.getElementById('end').value,
+          waypoints: waypts,
+          optimizeWaypoints: true,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+            var route = response.routes[0];
+            var summaryPanel = document.getElementById('directions-panel');
+            summaryPanel.innerHTML = '';
+            // For each route, display summary information.
+            for (var i = 0; i < route.legs.length; i++) {
+              var routeSegment = i + 1;
+              summaryPanel.innerHTML += '<b>Information ' + 
+                  '</b><br>';
+              summaryPanel.innerHTML += '<b>Route:</b>'+ ' ' +route.legs[i].start_address + ' to ';
+              summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+              summaryPanel.innerHTML += '<b>Distance:</b>'+ ' ' + route.legs[i].distance.text + '<br>';
+              summaryPanel.innerHTML += '<b>Vehiculo:</b>'+ ' ' +{{ubicacion.idVehiculo}} + '<br>';
+              summaryPanel.innerHTML += '<b>Placa:</b>'+ ' ' +{{ubicacion.placa}} + '<br>';
+              summaryPanel.innerHTML += '<b>kilometraje:</b>'+ ' ' + {{ubicacion.kilometraje}} + '<br>';
+              summaryPanel.innerHTML += '<b>Numero Economico:</b>'+ ' ' +{{ubicacion.noEconomico}} + '<br>';
+
+            }
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+      function geocodeLngLat(geocoder, map, infowindow) {
+        var input = document.getElementById('lnglat').value;
+        var lnglatStr = input.split(',', 2);
+        var lnglat = {lng: parseFloat(lnglatStr[0]),lat: parseFloat(lnglatStr[1])};
+        geocoder.geocode({'location': lnglat}, function(results, status) {
+          if (status === 'OK') {
+            if (results[0]) {
+              map.setZoom(11);
+              var marker = new google.maps.Marker({
+                position: lnglat,
+                map: map
+              });
+              infowindow.setContent(results[0].formatted_address);
+              infowindow.open(map, marker);
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+            window.alert('Geocoder failed due to: ' + status);
+          }
+        });
+      }
+     
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeQZSZalmb79CG_jD9VM6zpLsCP5QcigM&callback=initMap">
+    </script>
+
+
+
+
+    </div>
+</div>

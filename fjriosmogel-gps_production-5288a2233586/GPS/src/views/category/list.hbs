@@ -1,0 +1,57 @@
+
+<div class="container p-4">    
+<div class="col-md-5">
+      <div class="card-body">
+      <table>
+      <tr>
+      <td>
+        <a class="btn btn-success" href="/category/add"><i class="fas fa-plus"></i>
+        Nuevo
+        </a>
+      </td>
+      <td>
+        <input class="form-control" data-table="order-table" type="text" placeholder="Search..">
+      </td>
+      </tr>
+      </table>
+      </div> 
+    </div>
+
+<div class="container mt-4">
+<table class="table table table-hover" border=0>
+  <thead>
+    <tr align="center">
+      <th scope="col">id</th>
+      <th scope="col">nombre</th>
+      <th scope="col">user</th>
+      <th colspan="2">action</th>
+    </tr>
+    {{#each category}}
+  </thead>
+  <tbody>
+    <tr align="center">
+                    <td>{{id}}</td>
+                    <td>{{name}}</td>
+                    <td>{{user_id}}</td>
+                    <td><a class="btn btn-danger" href="/category/delete/{{id}}"><i class="fas fa-times-circle"></i>
+                        Delete
+                    </a>
+                    <a class="btn btn-secondary" href="/category/edit/{{id}}"><i class="fas fa-pencil-alt"></i>
+                        Edit
+                    </a></td>
+    </tr>
+   </tbody>
+   {{else}}
+
+        <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p>There are not category saved yet.</p>
+                <a href="/category/add">Create One!</a>
+            </div>
+        </div>
+        {{/each}}
+</table>
+
+    </div>
+</div>
+</div>

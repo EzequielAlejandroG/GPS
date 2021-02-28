@@ -1,0 +1,55 @@
+extends ../layout.pug
+block contenido
+  #page-wrapper
+    .row
+      .col-md-4.col-md-offset-4
+        .login-panel.panel.panel-default
+          .panel-heading
+            h3.panel-title Editar ruta
+          .panel-body
+            form(action="/rutas/"+rutaUpdate.idRuta+"?_method=PUT", method="POST")
+              fieldset
+                .form-group
+                  h5  Vehiculo:
+                  input.form-control(type="text", name="idVehiculo", value=rutaUpdate.idVehiculo, required)
+                .form-group
+                  h5  NoEconomico:
+                  input.form-control(type="text", name="noEconomico", value=rutaUpdate.noEconomico, required)  
+                .form-group
+                  h5  Remolque:
+                  input.form-control(type="text", name="idRemolque", value=rutaUpdate.idRemolque, required)
+                .form-group
+                  h5  Salida:
+                  input.form-control(type="text", name="salida", value=rutaUpdate.salida, required)
+                .form-group
+                  h5  Destino:
+                  input.form-control(type="text", name="destino", value=rutaUpdate.destino, required)
+                .form-group
+                  h5  Conductor:
+                  input.form-control(type="text", name="idConductor", value=rutaUpdate.idConductor, required)
+                .form-group
+                  h5  fecha de Salida:
+                  input.form-control(type="datetime-local", name="fechaSalida", value=rutaUpdate.fechaSalida, required)
+                .form-group
+                  h5  fecha de llegada:
+                  input.form-control(type="datetime-local", name="fechaLlegada", value=rutaUpdate.fechaLlegada, required)
+                .form-group
+                  h5  Tiempo estimado:
+                  input.form-control(type="text", name="tiempoEstimado", value=rutaUpdate.tiempoEstimado, required)                                                 
+                .form-group
+                  h5  Prioridad:
+                  input.form-control(type="text", name="idPrioridad",value=rutaUpdate.idPrioridad, required)
+                .form-group
+                  h5  Status:
+                  input.form-control(type="text", name="idEstado",value=rutaUpdate.idEstado, required)                  
+                  
+                input(type="submit" value="Actualizar" class="btn btn-lg btn-primary btn-block")
+  // jQuery
+  script(src='/public/vendor/jquery/jquery.min.js')
+  // Bootstrap Core JavaScript
+  script(src='/public/vendor/bootstrap/js/bootstrap.min.js')
+  // Metis Menu Plugin JavaScript
+  script(src='/public/vendor/metisMenu/metisMenu.min.js')
+  // Custom Theme JavaScript
+  script(src='/public/dist/js/sb-admin-2.js')
+  script(src='/public/dist/js/bootstrap-select.min.js')

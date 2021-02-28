@@ -1,0 +1,67 @@
+
+<div class="container p-4">    
+<div class="col-md-8">
+      <div class="card-body">
+      <table>
+      <tr>
+      <td>
+        <a class="btn btn-success" href="/operador/add"><i class="fas fa-plus"></i>
+        Nuevo
+        </a>
+      </td>
+      <td>
+        <input class="form-control" data-table="order-table" type="text" placeholder="Search..">
+      </td>
+      </tr>
+      </table>
+      </div> 
+    </div>
+
+<div class="container mt-10">
+<div class="col-md-15">
+<table class="table table table-hover" border=0>
+  <thead>
+    <tr align="center">
+      <th scope="col">numero identificador</th>
+      <th scope="col">nombre completo</th>
+      <th scope="col">categoria</ht>
+      <th scope="col">base</ht>
+      <th scope="col">tipo de licencia</ht>
+      <th scope="col">vigencia de licencia</ht>
+      <th scope="col">numero seguro</ht>
+      <th scope="col">fecha de ingreso</ht>
+      <th colspan="2">action</th>
+    </tr>
+  </thead>
+  {{#each operador}}
+  <tbody>
+    <tr align="center">
+                    <td>{{id_operador}}</td>
+                    <td><{{nombre}}</td>
+                    <td>{{categoria}}</td>
+                    <td>{{base}}</td>
+                    <td>{{tipo_licencia}}</td>
+                    <td>{{vigencia}}</td>
+                    <td>{{numero_seguro}}</td>
+                    <td>{{fecha_ingreso}}</td>
+                    <td><a class="btn btn-danger" href="/operador/delete/{{id_operador}}"><i class="fas fa-times-circle"></i>
+                        Delete
+                    </a>
+                    <a class="btn btn-secondary" href="/operador/edit/{{id_operador}}"><i class="fas fa-pencil-alt"></i>
+                        Edit                       
+                    </a></td>
+    </tr>
+   </tbody>
+   {{else}}
+
+        <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p>There are not Drivers saved yet.</p>
+                <a href="/operador/add">Create One!</a>
+            </div>
+        </div>
+        {{/each}}
+</table>
+    </div>
+</div>
+</div>

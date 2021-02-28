@@ -1,0 +1,66 @@
+<div class="col-md-5">
+      <div class="card-body">
+      <table>
+      <tr>
+            <td>
+        <input class="form-control" data-table="order-table" type="text" placeholder="Search.."></td>
+        <td><a class="btn btn-light" href="/remolque/edit/{{id_remolque}}"><i class="fas fa-search"></i>
+                    </a></td>
+      </td>
+      </tr>
+      </table>
+      </div> 
+    </div>
+
+
+<table class="table table table-hover" border="0">
+  <thead>
+    <tr align="center">
+      <th scope="col">idVehiculo</th>
+      <th scope="col">idCliente</th>
+      <th scope="col">Velocidad</th>
+      <th scope="col">Curso</th>
+      <th scope="col">fecha de Pocicion</th>
+      <th scope="col">kilometraje</th>
+      <th scope="col">N°Serie</th>
+      <th colspan="2">placa</th>
+      <th scope="col">N°Economico</th>
+      <th colspan="3">Dirección</th>
+      <th colspan="2">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{#each ubicacion}}
+    <tr align="center">
+                    <td>{{idVehiculo}}</td>
+                    <td>{{idCliente}}</td>
+                    <td>{{velocidad}}</td>
+                    <td>{{curso}}</td>
+                    <td>{{fechaPosicion}}</td>
+                    <td>{{kilometraje}}</td>
+                    <td>{{noSerie}}</td>
+                    <td colspan="2">{{placa}}</td>
+                    <td>{{noEconomico}}</td>                  
+                    <td colspan="3" >{{estadoGeoreferencia}} {{municipioGeoreferencia}} {{asentamientoGeoreferencia}}{{direccionGeoreferencia}}</td>
+                    <td><a class="btn btn-secondary" href="ubicacion/mapa/{{idVehiculo}}"><i class="fas fa-map-marked-alt"></i>
+                        Ver mapa
+                    </a></td>
+                    <td><a  class="btn btn-danger" href="ubicacion/report/{{idVehiculo}}"><i class="fas fa-file-pdf"></i>
+                        Ver Reporte
+                    </a></td>
+                   
+    </tr>
+   </tbody>
+   {{else}}
+
+        <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p>There are not Links saved yet.</p>
+                <a href="/ubicacion/add">Create One!</a>
+            </div>
+        </div>
+        {{/each}}
+</table>
+
+    </div>
+

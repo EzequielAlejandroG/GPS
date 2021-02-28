@@ -1,0 +1,156 @@
+extends ../layout.pug
+block contenido
+
+  #page-wrapper
+    .row
+      .col-lg-12
+        h3.page-header Lista de rutas
+    .row
+      .col-lg-12
+        .panel.panel-default
+          .panel-heading
+            | Rutas
+          .panel-body
+            table#dataTables-example.table.table-striped.table-bordered.table-hover
+              thead
+                tr
+                  th N°ruta
+                  th noEconomico
+                  th placas
+                  th Remolque
+                  th Salida
+                  th Destino
+                  th Conductor
+                  th fecha de Salida
+                  th fecha de Llegada
+                  th tiempo estimado
+                  th Ubicación
+                  th Status
+                  th Acción
+                  th latitud
+                  th longitud
+                  th prioridad
+                  th fecha de creación
+              tbody
+                if usuario.permisos === 2
+                  for ruta in rutas
+                    tr.odd.gradeX
+                      td #{ruta.idRuta}
+                      td #{ruta.noEconomico}
+                      th #{ruta.placa}
+                      td #{ruta.idRemolque}
+                      td #{ruta.salida}
+                      td #{ruta.destino}
+                      td #{ruta.idConductor}
+                      td #{ruta.fechaSalida}
+                      td #{ruta.fechaLlegada}
+                      td #{ruta.tiempoEstimado}
+                      td #{ruta.estadoGeoreferencia},#{ruta.municipioGeoreferencia},#{ruta.asentamientoGeoreferencia}, #{ruta.direccionGeoreferencia}
+                      td #{ruta.idEstado}
+                      td
+                       a(class="btn btn btn-primary btn-circle" href="/rutas/"+ruta.idRuta)
+                        i.fa.fa-map-marker(title="Editar")
+                       b &nbsp
+                       a(class="btn btn-danger btn-circle" href="/rutas/"+ruta.idRuta2)
+                        i.fa.fa-list(title="Localizar")
+                       b &nbsp
+                      // /.form(id="eliminar"  style="display:inline" action="/locations/"+ubicacion.placa+"?_method=DELETE",method="POST" onsubmit="return confirm('¿Continuar con la eliminación?')")
+                        button(type="submit/image" alt="text" value="" class="btn btn-danger btn-circle")
+                          i.fa.fa-times(title="Eliminar")
+                      td #{ruta.latitud}
+                      td #{ruta.longitud}
+                      td #{ruta.idPrioridad}
+                      td #{ruta.created_at}      
+
+                else
+
+                  for ruta in rutas
+                    tr.odd.gradeX
+                      td #{ruta.idRuta,id="idRuta"}
+                      td #{ruta.noEconomico}
+                      th #{ruta.placa}
+                      td #{ruta.idRemolque}
+                      td #{ruta.salida}
+                      td #{ruta.destino}
+                      td #{ruta.idConductor}
+                      td #{ruta.fechaSalida}
+                      td #{ruta.fechaLlegada}
+                      td #{ruta.tiempoEstimado}
+                      td #{ruta.estadoGeoreferencia},#{ruta.municipioGeoreferencia},#{ruta.asentamientoGeoreferencia}, #{ruta.direccionGeoreferencia}
+                      td #{ruta.idEstado}
+                      td
+                       a(class="btn btn btn-primary btn-circle" href="/rutas/"+ruta.idRuta)
+                        i.fa.fa-list(title="Editar")
+                       b &nbsp
+                       a(class="btn btn-danger btn-circle" href="/rutas/"+ruta.idRuta2)
+                        i.fa.fa-map-marker(title="Localizar")
+                       b &nbsp
+                      // /.form(id="eliminar"  style="display:inline" action="/locations/"+ubicacion.placa+"?_method=DELETE",method="POST" onsubmit="return confirm('¿Continuar con la eliminación?')")
+                        button(type="submit/image" alt="text" value="" class="btn btn-danger btn-circle")
+                          i.fa.fa-times(title="Eliminar")
+                      td #{ruta.latitud}
+                      td #{ruta.longitud}
+                      td #{ruta.idPrioridad}
+                      td #{ruta.created_at}  
+    
+    // jQuery
+  script(src='/public/dataTables/jquery/jquery.js') 
+  // Bootstrap Core JavaScript
+  script(src='/public/vendor/bootstrap/js/bootstrap.min.js')
+  // Metis Menu Plugin JavaScript
+  script(src='/public/vendor/metisMenu/metisMenu.min.js')
+  // DataTables JavaScript
+  script(src='/public/dist/js/sb-admin-2.js')
+  script(src='/public/stuk/dist/jszip.min.js')  
+  script(src='/public/dataTables/media/js/jquery.dataTables.min.js')
+  script(src='/public/dataTables/media/js/dataTables.bootstrap.min.js')
+  script(src='/public/dataTables/extensions/Responsive/js/dataTables.responsive.js')
+  script(src='/public/dataTables/extensions/Buttons/js/dataTables.buttons.min.js')
+  script(src='/public/dataTables/extensions/Buttons/js/buttons.html5.min.js')
+  script(src='/public/pdfmake/build/pdfmake.min.js')
+  script(src='/public/pdfmake/build/vfs_fonts.js') 
+  if usuario.permisos === 2
+    script.
+      $('#dataTables-example').DataTable({
+          responsive: true,
+          dom: 'Bfrtip',
+          buttons: [
+              {
+                  extend: 'excelHtml5',
+                  title: 'Rutas',
+                  exportOptions: {
+                      columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                  }
+              },
+              {
+                  extend: 'pdf',
+                  title: 'Rutas',
+                  exportOptions: {
+                      columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                  }
+              }
+          ]
+      });
+  else
+
+    script.
+      $('#dataTables-example').DataTable({
+          responsive: true,
+          dom: 'Bfrtip',
+          buttons: [
+              {
+                  extend: 'excelHtml5',
+                  title: 'Rutas',
+                  exportOptions: {
+                      columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                  }
+              },
+              {
+                  extend: 'pdf',
+                  title: 'Rutas',
+                  exportOptions: {
+                      columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                  }
+              }
+          ]
+      });

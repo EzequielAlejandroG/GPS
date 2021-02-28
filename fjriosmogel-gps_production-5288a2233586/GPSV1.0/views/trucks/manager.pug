@@ -1,0 +1,163 @@
+extends ../layout.pug
+block contenido
+
+  #page-wrapper
+    .row
+      .col-lg-12
+        h3.page-header Lista de Camiones
+    .row
+      .col-lg-12
+        .panel.panel-default
+          .panel-heading
+            | Camiones
+          .panel-body
+            table#dataTables-example.table.table-striped.table-bordered.table-hover
+              thead
+                tr
+                  th N°Economico
+                  th Placas 
+                  th Velocidad
+                  th Kilometraje
+                  th Estado       
+                  th Municipio    
+                  th Asentamiento 
+                  th Dirección
+                  th Posición
+                  th Estado del Motor
+                  th Acción               
+                  th FechaParcialRespuesta     
+                  th TiempoParcialRespuesta    
+                  th AnoParcialRespuesta       
+                  th MesParcialRespuesta       
+                  th DiaSemanaRespuesta        
+                  th Punto geografico
+                  th N°Vehiculo                                 
+                  th N°Cobertura               
+                  th N°Cliente                 
+                  th N°Equipo                  
+                  th N°Tipo de vehiculo            
+                  th Latitud                   
+                  th Longitud                                   
+                  th Curso                     
+                  th Fecha de posicion             
+                  th Fecha de respuesta                           
+                  th Fecha de posicionHcm          
+                  th Trayecto                
+                  th Notificacion              
+                  th N° Notificacion            
+                  th Argumento     
+                  th N° Serie                                                     
+                  th N° Servicio                
+                  th N° TipoPosicion            
+              tbody
+                for camion in camiones
+                  tr.odd.gradeX
+                    td #{camion.noEconomico}
+                    td #{camion.placa}
+                    td #{camion.velocidad}
+                    td #{camion.kilometraje}
+                    td #{camion.estadoGeoreferencia}       
+                    td #{camion.municipioGeoreferencia}    
+                    td #{camion.asentamientoGeoreferencia} 
+                    td #{camion.direccionGeoreferencia}    
+                    td #{camion.tipoPosicion}
+                    td #{camion.estadoMotor} 
+                    td
+                      // /.a(class="btn btn btn-primary btn-circle" href="/trucks/"+camion.placa)
+                        i.fa.fa-list(title="Editar")
+                      b &nbsp
+                       a(class="btn btn-danger btn-circle" href="/trucks/"+camion.placa)
+                        i.fa.fa-map-marker(title="Localizar")
+                      b &nbsp
+                      // /.form(id="eliminar"  style="display:inline" action="/trucks/"+camion.placa+"?_method=DELETE",method="POST" onsubmit="return confirm('¿Continuar con la eliminación?')")
+                        button(type="submit/image" alt="text" value="" class="btn btn-danger btn-circle")
+                          i.fa.fa-times(title="Eliminar")              
+                    td #{camion.fechaParcialRespuesta}     
+                    td #{camion.tiempoParcialRespuesta}    
+                    td #{camion.anoParcialRespuesta}       
+                    td #{camion.mesParcialRespuesta}      
+                    td #{camion.diaSemanaRespuesta}        
+                    td #{camion.geoPunto}
+                    td #{camion.idVehiculo}                                 
+                    td #{camion.idCobertura}               
+                    td #{camion.idCliente}                 
+                    td #{camion.idEquipo}                  
+                    td #{camion.idTipoVehiculo}            
+                    td #{camion.latitud}                   
+                    td #{camion.longitud}                                   
+                    td #{camion.curso}                     
+                    td #{camion.fechaPosicion}             
+                    td #{camion.fechaRespuesta}                           
+                    td #{camion.fechaPosicionHcm}          
+                    td #{camion.idTrayecto}                
+                    td #{camion.notificacion}              
+                    td #{camion.idNotificacion}            
+                    td #{camion.argumentoNotificacion}     
+                    td #{camion.noSerie}                                                     
+                    td #{camion.idServicio}                
+                    td #{camion.idTipoPosicion}             
+            // /.panel-body
+        // /.panel
+      // /.col-lg-12
+    // /.row
+    // jQuery
+  script(src='/public/dataTables/jquery/jquery.js') 
+  // Bootstrap Core JavaScript
+  script(src='/public/vendor/bootstrap/js/bootstrap.min.js')
+  // Metis Menu Plugin JavaScript
+  script(src='/public/vendor/metisMenu/metisMenu.min.js')
+  // DataTables JavaScript
+  script(src='/public/dist/js/sb-admin-2.js')
+  script(src='/public/stuk/dist/jszip.min.js')  
+  script(src='/public/dataTables/media/js/jquery.dataTables.min.js')
+  script(src='/public/dataTables/media/js/dataTables.bootstrap.min.js')
+  script(src='/public/dataTables/extensions/Responsive/js/dataTables.responsive.js')
+  script(src='/public/dataTables/extensions/Buttons/js/dataTables.buttons.min.js')
+  script(src='/public/dataTables/extensions/Buttons/js/buttons.html5.min.js')
+  script(src='/public/pdfmake/build/pdfmake.min.js')
+  script(src='/public/pdfmake/build/vfs_fonts.js') 
+  if usuario.permisos === 2
+    script.
+      $('#dataTables-example').DataTable({
+          responsive: true,
+          dom: 'Bfrtip',
+          buttons: [
+              {
+                  extend: 'excelHtml5',
+                  title: 'Camiones',
+                  exportOptions: {
+                      columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                  }
+              },
+              {
+                  extend: 'pdf',
+                  title: 'Camiones',
+                  exportOptions: {
+                      columns: [ 0, 1, 2, 3, 4, 5, 6, 7  ]
+                  }
+              }
+          ]
+      });
+  else
+
+    script.
+      $('#dataTables-example').DataTable({
+          responsive: true,
+          dom: 'Bfrtip',
+          buttons: [
+              {
+                  extend: 'excelHtml5',
+                  title: 'Camiones',
+                  exportOptions: {
+                      columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                  }
+              },
+              {
+                  extend: 'pdf',
+                  title: 'Camiones',
+                  exportOptions: {
+                      columns: [ 0, 1, 2, 3, 4, 5, 6, 7  ]
+                  }
+              }
+          ]
+      });

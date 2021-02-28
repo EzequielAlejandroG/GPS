@@ -1,0 +1,70 @@
+extends ../layout.pug
+block contenido
+  #page-wrapper
+    .row
+      .col-md-4.col-md-offset-4
+        .login-panel.panel.panel-default
+          .panel-heading
+            h3.panel-title Actualizar datos de los conductores
+          .panel-body
+            #aviso
+            form(action="/conductores/"+conductorUpdate.idConductor+"?_method=PUT",method="POST", id="formUpdate")
+              fieldset
+                .form-group
+                  h5  Nombre(s) :
+                  input.form-control(type="text", name="nombres", value=conductorUpdate.nombres, id="nom" required)
+                .form-group
+                  h5  Apellido(s):
+                  input.form-control(type="text", name="apellidos", value=conductorUpdate.apellidos, id="ape" required)
+                .form-group
+                  h5  CURP:
+                  input.form-control(type="text", name="curp", value=conductorUpdate.curp, id="curp" required)
+                .form-group
+                  h5  Direccion:
+                  input.form-control(type="text", name="direccion", value=conductorUpdate.direccion, id="dir" required)
+                .form-group
+                  h5  Categoria:
+                  input.form-control(type="text", name="categoria", value=conductorUpdate.categoria, id="cat" required)
+                .form-group
+                  h5  Base:
+                  input.form-control(type="text", name="base", value=conductorUpdate.base, id="bas" required)
+                .form-group
+                  h5  N°.Licencia:
+                  input.form-control(type="text", name="numeroLicencia", value=conductorUpdate.numeroLicencia, id="lis" required)
+                if usuario.permisos === 2
+                  .form-group
+                    h5  Tipo de licencia:
+                    select.form-control(nom="nombres")
+                      option #{conductorUpdate.nombres}
+                      for license in licenses
+                        if licencias.nombre != conductorUpdate.nombre
+                          option #{license.nombre} 
+                .form-group
+                  h5  Expedicion de la licencia:
+                  input.form-control(type="text", name="expedicion", value=conductorUpdate.expedicion, id="exp" required)
+                .form-group
+                  h5  Vigencia de la licencia:
+                  input.form-control(type="text", name="vigencia", value=conductorUpdate.vigencia, id="vig" required)
+                .form-group
+                  h5  Nacionalidad:
+                  input.form-control(type="text", name="nacionalidad", value=conductorUpdate.nacionalidad, id="nac" required)
+                .form-group
+                  h5  N° de Seguro:
+                  input.form-control(type="text", name="numeroSeguro", value=conductorUpdate.numeroSeguro, id="seg" required) 
+                .form-group
+                  h5  Fecha de ingreso a la compania:
+                  input.form-control(type="text", name="fechaIngreso", value=conductorUpdate.fechaIngreso, id="fec" required)
+                
+                // boton para registrar
+                .form-group
+                input(type="submit" value="Actualizar" class="btn btn-lg btn-primary btn-block")
+
+  // jQuery
+  script(src='/public/vendor/jquery/jquery.min.js')
+  // Bootstrap Core JavaScript
+  script(src='/public/vendor/bootstrap/js/bootstrap.min.js')
+  // Metis Menu Plugin JavaScript
+  script(src='/public/vendor/metisMenu/metisMenu.min.js')
+  // Custom Theme JavaScript
+  script(src='/public/dist/js/sb-admin-2.js')
+  script(src='/public/dist/js/bootstrap-select.min.js')

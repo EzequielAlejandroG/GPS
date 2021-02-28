@@ -1,0 +1,59 @@
+
+<div class="container p-4">    
+<div class="col-md-5">
+      <div class="card-body">
+      <table>
+      <tr>
+      <td>
+        <a class="btn btn-success" href="/links/add"><i class="fas fa-plus"></i>
+        Nuevo
+        </a>
+      </td>
+      <td>
+        <input class="form-control" data-table="order-table" type="text" placeholder="Search..">
+      </td>
+      </tr>
+      </table>
+      </div> 
+    </div>
+
+<div class="container mt-4">
+{{#each links}}
+<table class="table table table-hover" border=1>
+  <thead>
+    <tr>
+      <th scope="col">url</th>
+      <th scope="col">title</th>
+      <th scope="col">description</th>
+      <th scope="col">description2</th>
+      <th scope="col">created_at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+                    <td>{{url}}</td>
+                    <td>{{title}}</td>
+                    <td>{{description}}</td>
+                    <td>{{description2}}</td>
+                    <td>{{timeago created_at}}</td>
+                    <td><a class="btn btn-danger" href="/links/delete/{{id}}">
+                        Delete Link
+                    </a></td>
+                    <td><a class="btn btn-secondary" href="/links/edit/{{id}}">
+                        Edit
+                    </a></td>
+    </tr>
+   </tbody>
+</table>
+{{else}}
+
+        <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p>There are not Links saved yet.</p>
+                <a href="/links/add">Create One!</a>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+</div>
